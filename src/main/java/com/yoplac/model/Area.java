@@ -1,20 +1,21 @@
 package com.yoplac.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Area {
     private String nombre;
-    private Collection<Actividad> actividades;
+    private List<Actividad> actividades = new ArrayList<>();
 
     public Area(String nombre) {
         this.nombre = nombre;
     }
 
-    public Collection<Actividad> getActividades() {
+    public List<Actividad> getActividades() {
         return actividades;
     }
 
-    public void setActividades(Collection<Actividad> actividades) {
+    public void setActividades(List<Actividad> actividades) {
         this.actividades = actividades;
     }
 

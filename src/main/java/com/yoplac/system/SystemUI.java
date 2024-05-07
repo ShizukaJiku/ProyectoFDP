@@ -4,6 +4,7 @@ import com.yoplac.model.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 public class SystemUI {
@@ -16,7 +17,7 @@ public class SystemUI {
         escrbir("1. Ingresar Datos");
         escrbir("2. Generar Reporte");
         escrbir("3. Mostrar Presupuesto");
-        escrbir("3. Menu Mantenimiento");
+        escrbir("4. Menu Mantenimiento");
         escrbir("0. Salir");
 
         return leerOpcion();
@@ -27,7 +28,7 @@ public class SystemUI {
         escrbir("Periodo actual -> " + SystemLogic.PERIODO);
         escrbir(SEPARATOR);
 
-        Collection<Area> newAreas = new ArrayList<>();
+        List<Area> newAreas = new ArrayList<>();
 
         for(var area : presupuestoBase.getAreas()) {
             escrbir("Area -> " + area.getNombre());
@@ -70,7 +71,7 @@ public class SystemUI {
         return leerOpcion();
     }
 
-    public static String menuAreas(Collection<Area> areas) {
+    public static String menuAreas(List<Area> areas) {
         mostrarTitulo("Menu Areas - Sistema Control Presupuesto");
 
         listarAreas(areas);
@@ -100,14 +101,44 @@ public class SystemUI {
         return leerOpcion();
     }
 
-    public static void generarReporte(Registro registro, Periodo periodo) {
+    public static Actividad nuevaActividad() {
+        escrbir(SEPARATOR);
+        System.out.print("Ingresar nueva actividad --> ");
+        String nombre = input.nextLine();
+        escrbir(SEPARATOR);
+
+        return new Actividad(nombre);
+    }
+
+    public static Area nuevaArea() {
+        escrbir(SEPARATOR);
+        System.out.print("Ingresar nueva area --> ");
+        String nombre = input.nextLine();
+        escrbir(SEPARATOR);
+
+        return new Area(nombre);
+    }
+
+    public static String seleccionarPeriodo(Periodo periodoActual) {
+        mostrarTitulo("Periodo Actual: " + periodoActual);
+
+        for(int i = 0; i < Periodo.values().length; i++) {
+            Periodo periodo = Periodo.values()[i];
+            escrbir((i+1) + ". " + periodo);
+        }
+        escrbir("0. Regresar");
+
+        return leerOpcion();
+    }
+
+    public static void mostrarReporte(Registro registro, Periodo periodo) {
         mostrarTitulo("Reporte " + periodo);
         // Construir la cabecera
         StringBuilder cabecera = new StringBuilder();
         cabecera.append(String.format("%-15s", "Áreas/Actividad"));
 
         for (int i = 0; i < periodo.cantInAnual(); i++) {
-            cabecera.append(String.format("%15s", "Col " + (i + 1)));
+            cabecera.append(String.format("%15s", periodo.getAbreviacion() + " " + (i + 1)));
         }
 
         escrbir(cabecera);
@@ -131,25 +162,28 @@ public class SystemUI {
 
             escrbir(fila);
         }
+
+        pressToBack();
     }
 
-    private static void listarAreas(Collection<Area> areas) {
-        int indice = 1;
+    private static void pressToBack() {
+        System.out.print("Presionar para regresar...");
+        input.nextLine();
+    }
 
-        for (Area area : areas) {
-            escrbir(indice + ". " + area.getNombre());
-            indice++;
+    private static void listarAreas(List<Area> areas) {
+        for (int i = 0; i < areas.size(); i++) {
+            Area area = areas.get(i);
+            escrbir((i + 1) + ". " + area.getNombre());
         }
 
         System.out.println(SEPARATOR);
     }
 
-    private static void listarActividades(Collection<Actividad> actividades) {
-        int indice = 1;
-
-        for (Actividad actividad : actividades) {
-            escrbir(indice + ". " + actividad.getNombre());
-            indice++;
+    private static void listarActividades(List<Actividad> actividades) {
+        for (int i = 0; i < actividades.size(); i++) {
+            Actividad actividad = actividades.get(i);
+            escrbir((i + 1) + ". " + actividad.getNombre());
         }
 
         System.out.println(SEPARATOR);

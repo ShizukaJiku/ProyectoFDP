@@ -6,6 +6,7 @@ public class Actividad {
 
     public Actividad(String nombre) {
         this.nombre = nombre;
+
     }
 
     public void setMonto(Periodo periodo, Double monto, int index) {

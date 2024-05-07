@@ -4,6 +4,7 @@ public class Empresa {
     private String nombre;
     private Registro presupuestoBase;
     private Registro registro;
+    private Periodo periodo = Periodo.MENSUAL;
 
     public Empresa(String nombre, Registro presupuestoBase) {
         this.nombre = nombre;
@@ -24,5 +25,13 @@ public class Empresa {
 
     public void setRegistro(Registro registro) {
         this.registro = registro;
+    }
+
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
     }
 }

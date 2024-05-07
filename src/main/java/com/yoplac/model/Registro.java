@@ -1,15 +1,15 @@
 package com.yoplac.model;
 
-import java.util.Collection;
+import java.util.List;
 
 public class Registro {
-    private Collection<Area> areas;
+    private List<Area> areas;
 
-    public Registro(Collection<Area> areas) {
+    public Registro(List<Area> areas) {
         this.areas = areas;
     }
 
-    public Collection<Area> getAreas() {
+    public List<Area> getAreas() {
         return areas;
     }
 }
